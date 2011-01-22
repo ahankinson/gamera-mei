@@ -1,0 +1,7 @@
+#!/usr/bin/env python
+
+# This just simply runs the gamera_mei toolkits main function
+
+from gamera.toolkits.gamera_mei import main
+
+main.main()

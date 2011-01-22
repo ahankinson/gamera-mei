@@ -1,0 +1,237 @@
+========================================
+Building and installing a Gamera toolkit
+========================================
+
+This is generic information about building and installing a Gamera
+toolkit.
+
+**Please make sure that Gamera is built and fully installed before
+proceeding.**
+
+Gamera can be downloaded at http://gamera.sourceforge.net/
+
+Microsoft Windows
+=================
+
+Installing using the Windows installer
+--------------------------------------
+
+If you downloaded the Windows installer, simply run it to
+install the Gamera toolkit.
+
+Installing from source
+----------------------
+
+Currently, Gamera toolkits can be built using the Cygwin/MingW32/GNU
+toolset or Microsoft Visual Studio 6 or 7.
+
+Cygwin/Mingw32
+``````````````
+
+Use the installer from http://www.cygwin.com/ to install Cygwin,
+including the ``g++`` compiler and the ``MingW32`` libraries.
+Compiling Gamera toolkits against the Cygwin DLL is theoretically
+possible, but not supported.  However, you can compile Gamera using
+``MingW32``, which means there will be no non-standard Windows runtime
+dependencies.
+
+Python
+''''''
+
+You have two options here
+
+Use the Cygwin version Python that is distributed with Cygwin:
+   This is the easiest approach, since it behaves most like a Unix
+   system.  Skip to the next section for further instructions.
+
+Use the MSVC-built Python from python.org:
+   The advantage of this approach is that you can build an installer
+   that will work with the "canonical" distribution of Python.
+   However, you'll have to do a few preparation steps first.
+
+   Go to the Python/libs directory::
+	
+	cd [PATH_TO_PYTHON]/libs
+
+   Find your ``pythonXX.dll`` file, where ``XX`` is the version of
+   Python you have installed.  This is normally in
+   ``C:\WINDOWS\system32\`` or ``C:\winnt\system32\``.
+
+   Make a ``.def`` file from your ``pythonXX.dll``.  (You will need to
+   install ``pexports.exe`` from the Cygwin installer)::
+
+  	pexports 'C:\WINDOWS\system32\pythonXX.dll' > pythonXX.def
+
+   Then create a static library (``libpythonXX.a``)::
+
+	dlltool --dllname pythonXX.dll --def
+                pythonXX.def --output-lib libpythonXX.a
+	
+   Now you should be ready to continue below.
+
+Standard Build and Install
+''''''''''''''''''''''''''
+
+Gamera toolkits are built using the Python-standard Distutils system.
+Open a Cygwin command prompt and type::
+
+  python setup.py build --compiler=mingw32
+
+If you receive the following error (only exhibited under Python 2.3),
+distutils is having trouble traversing the Cygwin-based symlink from
+``/bin/cc.exe`` to ``/bin/gcc.exe``.  The hacky solution to this
+(until this bugfix in distutils is fixed) is to delete the symlink and
+make a real copy (at the expense of a little disk space)::
+
+  rm /bin/cc.exe
+  cp /bin/gcc.exe /bin/cc.exe
+
+If you just want to install Gamera toolkit without the ability to
+uninstall::
+
+  python setup.py install
+
+If you'd like a real Windows installer, including uninstallation
+support::
+
+  python setup.py build --compiler=mingw32 bdist_wininst
+  dist/gamera-X.X.X-win32.exe
+
+Microsoft Visual Studio
+```````````````````````
+
+Compiling Gamera toolkits with MS Visual Studio should be considered
+preliminary and non-preferred.  Particularly in light of all of the
+backwardly-incompatible things in Visual Studio .NET, it is a bit of a
+pain.
+
+First and foremost, you will need to ensure that Python was compiled
+with the same version of Visual Studio as you use to compile Gamera.
+At the time of this writing, the "official" distribution of Python was
+compiled with Visual Studio 6.  If the compilers so not match, you may
+need to recompile Python, which is a daunting task beyond the scope of
+this document.
+
+Standard Build and Install
+''''''''''''''''''''''''''
+
+Gamera is built using the Python-standard Distutils system.  Open a
+Microsoft Visual Studio Command Prompt (this should have been added to
+the Start Menu when you installed Visual Studio).  Change to the
+directory where the Gamera source is installed and type::
+
+  python setup.py build
+
+If you just want to install Gamera without the ability to uninstall::
+
+  python setup.py install
+
+If you'd like a real Windows installer, including uninstallation
+support::
+
+  python setup.py build --compiler=mingw32 bdist_wininst
+  dist/gamera-X.X.X-win32.exe
+
+
+Linux (and other \*nix)
+=======================
+
+Install binary packages for Python and wxPython (see correct versions
+at top of this document.)
+
+In addition, your Linux installation should also have:
+
+- libtiff 3.5.x
+- libpng 2.2.x
+- libz
+
+Standard Build and Install
+--------------------------
+
+Gamera toolkits are built using the Python-standard Distutils system.  Open a
+terminal and type::
+
+  python setup.py build
+  sudo python setup.py install
+
+Mac OS-X
+========
+
+OS-X support can be considered working but preliminary at this point.
+Gamera toolkits will only run on Panther (10.3).  We do not plan to support
+earlier versions.  You will need to install the GNU development tools
+(gcc, g++, ld etc.), X11, and Python 2.3.
+
+Prerequisites
+-------------
+
+wxPython comes in two flavors for OS-X: a native Carbon-based one that
+follows the look-and-feel of OS-X, and a version built on top of
+Gtk+/X11.  The native Carbon version is currently too incomplete to be
+usable for Gamera.  Since there is no official build of the
+Gtk+/X11 version, I have made one available in the Gamera
+SourceForge Files section.
+
+Standard Build and Install
+----------------------------
+
+Download and install the unoffical wxPython-Gtk-X11 distribution from
+the Gamera Files section on SourceForge.
+
+  Alternatively, you can install fink and then build the package
+  wxPython-Py23, which is currently in the unstable branch, (and its
+  dependencies) from source.  You will then need to use the fink
+  version of Python (not the one that Apple provides) to carry out the
+  instructions below.
+
+Gamera is built using the Python-standard Distutils system.  
+
+To build Gamera, open a X11 terminal and type::
+
+  python setup.py build
+
+and then to install (you'll need to have admin priviledges)::
+ 
+  sudo python setup.py install
+
+The scripts can be installed by::
+
+  sudo python setup.py install_scripts -d /usr/bin
+
+.. note:: The ``-d /usr/bin/`` installs the scripts in a reasonable
+  place on the PATH.  If you do not specify it, the scripts are by
+  default installed to ``/System/Library/Frameworks/Python.framework/Versions/2.3/bin``.
+
+Building the documentation
+==========================
+
+Once the the toolkit is built, the documentation can be
+generated and converted to HTML.
+
+Prerequisites
+-------------
+
+Generating documentation requires two third-party Python
+libraries:
+
+  - docutils_ (version 0.3 or later) for handling reStructuredText documents.
+
+  - SilverCity_ (version 0.9 or later) for colorizing source code.
+
+.. _docutils: http://docutils.sourceforge.net/
+.. _SilverCity: http://silvercity.sourceforge.net/
+
+Generating
+----------
+
+To generate the documentation, go to the ``doc`` directory and run the
+``gendoc.py`` script.
+
+Alternatively, you can call the ``gendoc.py`` script with the
+documentation directory as a commandline argument::
+
+   gendoc.py -d /path/to/doc
+
+The output will be placed in the ``doc/html/`` directory.  The contents of
+this directory can be placed on a webserver for convenient viewing.
+

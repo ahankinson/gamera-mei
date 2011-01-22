@@ -1,0 +1,5 @@
+recursive-include src *.cpp *.c *.h makefile.* *.hpp *.hxx *.cxx *.txt ANNOUNCE CHANGES INSTALL KNOWNBUG LICENSE README TODO Y2KINFO
+recursive-include include *.cpp *.c *.h makefile.* *.hpp *.hxx *.cxx *.txt ANNOUNCE CHANGES INSTALL KNOWNBUG LICENSE README TODO Y2KINFO
+recursive-include scripts gamera_mei
+include INSTALL LICENSE README rename.py MANIFEST.in
+recursive-include doc *.txt *.css *.py *.jpg *.jpeg *.png *.gif

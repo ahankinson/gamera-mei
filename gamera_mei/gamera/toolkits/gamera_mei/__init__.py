@@ -9,6 +9,7 @@ and may be omitted if you are not concerned with that.
 from gamera import toolkit
 import wx
 from gamera.toolkits.gamera_mei import main
+from gamera.toolkits.gamera_mei import plugins
 
 
 # Let's import all our plugins here so that when this toolkit

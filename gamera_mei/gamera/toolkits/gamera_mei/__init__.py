@@ -40,4 +40,4 @@ from gamera.toolkits.gamera_mei import plugins
 #
 # [1, 18, 142, '', 3, 'clef', 'c', [''], '', 14, 40]
 # [1, 612, 203, 'F', 7, 'neume', 'virga', [''], 'D', 13, 44]
-# 
+#

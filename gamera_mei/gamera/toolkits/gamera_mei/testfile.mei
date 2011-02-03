@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<mei xmlns="http://www.music-encoding.org/ns/mei">
+  <graphic xmlns:ns0="http://www.w3.org/1999/xlink" xml:id="2ee86fa6-ea39-4507-b676-c10166676de5" ns0:href="foo.jpg">
+    <zone xml:id="2147b186-9e51-466a-9fbe-8f26effd1093" lry="35" ulx="213" uly="179" lrx="26"/>
+    <zone xml:id="ac1cca37-d28d-4ba2-bb73-f45a7ca4c619" lry="35" ulx="213" uly="179" lrx="26"/>
+    <zone xml:id="ccb3407a-d247-4b89-9c4e-0e74c7a16ad9" lry="4" ulx="1" uly="2" lrx="3"/>
+    <zone xml:id="8aecb2db-2cda-4581-ab21-207806579263" lry="7" ulx="4" uly="5" lrx="6"/>
+  </graphic>
+  <staff xml:id="6408cd4d-68dc-4ce5-bf36-fc0d55f6cae6" facs="ccb3407a-d247-4b89-9c4e-0e74c7a16ad9" n="1">
+    <uneume xml:id="5da8185c-1591-4219-ae20-02b6108ea38a" facs="2147b186-9e51-466a-9fbe-8f26effd1093" name="clivis">
+      <note xml:id="24aed9bf-1113-44e1-bc42-6372e79d159f" pname="A"/>
+      <note xml:id="d151ce5a-b83f-4e82-bf89-b951aadc34ac" pname="F"/>
+    </uneume>
+    <uneume xml:id="266a7852-b53e-4629-8b8d-ed3b9eee7374" facs="ac1cca37-d28d-4ba2-bb73-f45a7ca4c619" name="torculus">
+      <note xml:id="f2a43025-74da-4332-a71a-1609f6a63fb8" pname="E"/>
+      <note xml:id="4e18b8cf-a632-4023-8f45-31c90d57a0f7" pname="F"/>
+      <note xml:id="9ced8e82-fdee-48e3-8a9b-448b1c60f2f1" pname="C"/>
+    </uneume>
+  </staff>
+  <staff xml:id="42835f57-cd30-47af-80bb-830ab9c55b5c" facs="8aecb2db-2cda-4581-ab21-207806579263" n="2"/>
+</mei>

@@ -176,30 +176,25 @@ class GameraMeiOutput(object):
                 dir = self.NEUME_NOTES[self.glyph['form'][0]][n]
                 lg.debug("direction is {0}".format(dir))
                 iv = ivals[n]
-                y = idx
-                lg.debug("Idx is: {0}".format(y))
+                n_idx = idx
                 
-                lg.debug("Y is: {0}".format(y))
-                # since we use "musical counting", a 2 is actually an increase of only
-                # one index point, so we only need to progress iv - 1; e.g., an interval
-                # of 2 is only one step, so iv = 2 == idx + 1
-                for i in xrange(iv - 1):
-                    if dir == 'u':
-                        lg.debug("going up")
-                        y += 1
-                        if y > len(self.SCALE):
-                            y = 0
-                    elif dir == 'd':
-                        lg.debug("going down")
-                        y -= 1
-                        if y < 0:
-                            y = len(self.SCALE) - 1
-                    # we set idx to y here, since we want to be relative to 
-                    # the last note we have, not the starting pitch.
-                    idx = y
-                    
-                lg.debug("Picking pitch {0}".format(self.SCALE[y]))
-                self._neume_pitches.append(self.SCALE[y])
+                lg.debug("index: {0}".format(idx))
+                
+                
+                if dir == 'u':
+                    if (idx + (iv - 1)) >= len(self.SCALE):
+                        n_idx = 0 + (iv - 1)
+                    else:
+                        n_idx = idx + (iv - 1)
+                elif dir == 'd':
+                    if idx - (iv - 1) < 0:
+                        n_idx = len(self.SCALE) + (idx - (iv - 1))
+                    else:
+                        n_idx = idx - (iv - 1)
+                idx = n_idx
+                
+                lg.debug("Picking pitch {0}".format(self.SCALE[n_idx]))
+                self._neume_pitches.append(self.SCALE[n_idx])
         
         for n in xrange(num_notes):
             p = self._neume_pitches[n]
@@ -258,7 +253,7 @@ if __name__ == "__main__":
                 'type': 'neume',
                 'form': ['torculus', '2', '4'],
                 'coord': [213, 179, 26, 35],
-                'strt_pitch': 'E',
+                'strt_pitch': 'B',
                 'strt_pos': 5
             }]
         }, 2: {
@@ -275,7 +270,7 @@ if __name__ == "__main__":
     
     v = GameraMeiOutput(test_data)
     
-    pdb.set_trace()
+    # pdb.set_trace()
     
     
     

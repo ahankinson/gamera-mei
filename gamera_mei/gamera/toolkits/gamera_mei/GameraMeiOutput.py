@@ -75,7 +75,7 @@ class GameraMeiOutput(object):
                                 'lrx': self.staff['coord'][2], 'lry': self.staff['coord'][3]}
             
             self._global_graphic_element.add_child(z)
-            staffel.facs = z.id
+            self.staffel.facs = z.id
             
             self.meidoc.add_child(self.staffel)
         
@@ -244,12 +244,6 @@ if __name__ == "__main__":
         1: {
             'coord': [1,2,3,4],
             'content': [{
-                'type': 'clef',
-                'form': ['c'],
-                'coord': [10,20,30,40],
-                'strt_pos': 5
-                # 'strt_pitch': ''
-            }, {
                 'type': 'neume',
                 'form': ['clivis', '4'],
                 'coord': [213, 179, 26, 35],
@@ -275,6 +269,10 @@ if __name__ == "__main__":
     }
     
     v = GameraMeiOutput(test_data)
+    
+    from pymei.Export import meitoxml
+    meitoxml.meitoxml(v.md, 'testfile.mei')
+    
     
     # pdb.set_trace()
     

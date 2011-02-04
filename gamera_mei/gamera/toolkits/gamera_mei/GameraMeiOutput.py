@@ -68,7 +68,7 @@ class GameraMeiOutput(object):
         
         for snum,stf in self._recognition_results.iteritems():
             self.staff = stf
-            staffel = self._parse_staff(snum, stf)
+            self.staffel = self._parse_staff(snum, stf)
             z = mod.zone_()
             z.id = self._idgen()
             z.attributes = {'ulx': self.staff['coord'][0], 'uly': self.staff['coord'][1], \
@@ -77,7 +77,7 @@ class GameraMeiOutput(object):
             self._global_graphic_element.add_child(z)
             staffel.facs = z.id
             
-            self.meidoc.add_child(staffel)
+            self.meidoc.add_child(self.staffel)
         
         self.md = MeiDocument.MeiDocument()
         self.md.addelement(self.meidoc)
@@ -244,6 +244,12 @@ if __name__ == "__main__":
         1: {
             'coord': [1,2,3,4],
             'content': [{
+                'type': 'clef',
+                'form': ['c'],
+                'coord': [10,20,30,40],
+                'strt_pos': 5
+                # 'strt_pitch': ''
+            }, {
                 'type': 'neume',
                 'form': ['clivis', '4'],
                 'coord': [213, 179, 26, 35],
